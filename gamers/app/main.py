@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from aiokafka import AIOKafkaConsumer
 import asyncio
 from contextlib import asynccontextmanager
+
 import logging
 
 logging.basicConfig(level=logging.INFO)
@@ -10,12 +11,13 @@ KAFKA_BROKER = "broker:19092"
 KAFKA_TOPIC = "gamers"
 KAFKA_CONSUMER_GROUP_ID = "gamers-consumer-group"
 
-
 async def consume():
+    # Milestone: CONSUMER INTIALIZE
     consumer = AIOKafkaConsumer(
         KAFKA_TOPIC,
         bootstrap_servers=KAFKA_BROKER
     )
+    
     await consumer.start()
     try:
         async for msg in consumer:
